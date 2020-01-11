@@ -4,4 +4,4 @@ COPY . .
 
 RUN npm install --production
 
-ENTRYPOINT ["node", "main.js"]
+ENTRYPOINT ["node", "index.js"]

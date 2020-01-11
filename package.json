@@ -2,7 +2,7 @@
   "name": "signoff-new-commit",
   "version": "0.1.0",
   "description": "A GitHub Action to merge a PR after signing off on new commits without wiping previous reviews.",
-  "main": "main.js",
+  "main": "index.js",
   "scripts": {
     "test": "jest",
     "format": "prettier --write **/*.js",
