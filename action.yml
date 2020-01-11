@@ -1,0 +1,14 @@
+name: 'Sign Off on New Commits'
+description: 'Require all commits to be approved in your PR without wiping past approvals.'
+author: 'Artis3n <dev@artis3nal.com>'
+inputs:
+  token:
+    description: 'This should be a token with access to your repository scoped in as a secret, e.g. ${{ secrets.GITHUB_TOKEN }}'
+    required: true
+  approvals:
+    description: 'Number of approvals that must apply to the latest commit. Defaults to 1.'
+    default: '1'
+    required: false
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
