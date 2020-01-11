@@ -64,7 +64,7 @@ async function run() {
     throw new Error(`GraphQL request failed: ${error.message}`);
   }
 
-  // If an error isn't thrown above, we have _something_ in repositoryData
+  // If anything doesn't exist, the variable's value will be undefined
   const latestCommitDate = new Date(repositoryData?.pullRequest?.commits?.nodes[0]?.commit?.committedDate);
   const reviews = repositoryData?.pullRequest?.reviews?.nodes;
 
@@ -72,19 +72,22 @@ async function run() {
     throw new Error('Failure parsing data from GraphQL query response');
   }
 
+  let passed = false;
+
   const reviewApproves = reviews.filter(review => review?.state === 'APPROVED');
   reviewApproves.forEach((review) => {
+    // if review?.createdAt is undefined, we can still safely perform a comparison to reviewDate
     const reviewDate = new Date(review?.createdAt);
     if (reviewDate > latestCommitDate) {
       debug('Approved review exists since the latest commit was added.');
+      passed = true;
     }
   });
 
-  // If we don't exit above, then there is no approved review since the last commit. Fail.
-  setFailed('No approved review exists since the latest commit was added.');
+  if (!passed) {
+    throw new Error('No approved review exists since the latest commit was added.');
+  }
 }
 
-startGroup('Main code');
 run()
   .catch(error => setFailed(error));
-endGroup();
