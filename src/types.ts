@@ -30,6 +30,6 @@ export type SignOffRequest = {
   repo: {
     name: string;
     pr: number;
-  }
+  };
   approvals: number;
-}
+};
