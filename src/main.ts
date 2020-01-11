@@ -37,10 +37,8 @@ async function run() {
       name: repoName,
       pr: pr_number,
     },
-    approvals
-  })
-    .then(() => debug('Approved review exists since the latest commit was added.'));
+    approvals,
+  }).then(() => debug('Approved review exists since the latest commit was added.'));
 }
 
-run()
-  .catch(error => setFailed(error));
+run().catch(error => setFailed(error));

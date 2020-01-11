@@ -9,7 +9,6 @@ const pr_number = 1;
 
 describe('Sign off', () => {
   it('should retrieve the timestamp of the latest commit', async () => {
-
     const scope = nock('https://api.github.com')
       .get(`/graphql`)
       .reply(200, {});
