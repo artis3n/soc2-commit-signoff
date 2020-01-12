@@ -6,8 +6,7 @@ import {
   OneApprovalMoreRecentThanCommit,
   CommitMoreRecentThanApproval,
   NoApprovedReviews,
-  // @ts-ignore
-} from './data/graphqlData';
+} from '../src/data/graphqlData';
 
 const owner = 'artis3n';
 const repo = 'signoff-new-commit';
@@ -29,7 +28,7 @@ function mockGraphQLCall(resultPayload: object) {
     .reply(200, resultPayload);
 }
 
-describe('Sign off', () => {
+describe('Sign off on Commit', () => {
   it('should pass on 1 approval more recent than the last commit', async () => {
     const scope = mockGraphQLCall(OneApprovalMoreRecentThanCommit);
 
