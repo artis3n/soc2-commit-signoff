@@ -8,6 +8,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: artis3n/signoff-new-commit@{{ github.sha }}
+      - uses: artis3n/signoff-new-commit@${{ github.sha }}
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
