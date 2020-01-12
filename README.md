@@ -14,7 +14,7 @@ The number of necessary approvals to allow this Action to pass can be customized
 
 ## Requirements
 
-This action must be triggered from a pull request event: `on: [pull_request]`. It can be run for specific `pull_request` states but the intended usage is for a general `[pull_request]`. This Action will fail if it is not triggered from a pull request.
+This action must be triggered from a pull request event: `on: [pull_request]`. You can also use any `pull_request` activity type. For information on those activity types, see the [GitHub documentation](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/events-that-trigger-workflows#pull-request-event-pull_request).
 
 ## Inputs
 
