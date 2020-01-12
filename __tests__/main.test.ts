@@ -2,19 +2,40 @@ import nock from 'nock';
 
 import { isCommitSignedOff } from '../src/action';
 
+import {
+  OneApprovalMoreRecentThanCommit,
+  CommitMoreRecentThanApproval,
+  NoApprovedReviews,
+  // @ts-ignore
+} from './data/graphqlData';
+
 const owner = 'artis3n';
 const repo = 'signoff-new-commit';
 const githubToken = 'afaketoken';
 const pr_number = 1;
 
-describe('Sign off', () => {
-  it('should retrieve the timestamp of the latest commit', async () => {
-    const scope = nock('https://api.github.com')
-      .get(`/graphql`)
-      .reply(200, {});
+/**
+ * Get response data for the mocked network calls from https://developer.github.com/v4/explorer/
+ * Copy + paste the result object on the right.
+ */
 
+/**
+ * Sets up nock to mock a web request to GitHub's GraphQL API.
+ * @param resultPayload The response payload that nock should return for the GraphQL API.
+ */
+function mockGraphQLCall(resultPayload: object) {
+  return nock('https://api.github.com')
+    .post('/graphql')
+    .reply(200, resultPayload);
+}
+
+describe('Sign off', () => {
+  it('should pass on 1 approval more recent than the last commit', async () => {
+    const scope = mockGraphQLCall(OneApprovalMoreRecentThanCommit);
+
+    let result;
     try {
-      await isCommitSignedOff({
+      result = await isCommitSignedOff({
         token: githubToken,
         owner,
         repo: {
@@ -24,29 +45,80 @@ describe('Sign off', () => {
         approvals: 1,
       });
     } catch (error) {
-      fail(error);
+      expect(error).toBeNull();
+    } finally {
+      scope.done();
     }
 
-    scope.done();
+    expect(result).toBeTruthy();
   });
 
-  it('should retrieve the timestamp of the latest review approval', async () => {
-    expect(true).toBe(true);
+  it('should fail if approved review is older than the latest commit', async () => {
+    const scope = mockGraphQLCall(CommitMoreRecentThanApproval);
+
+    let result;
+    try {
+      result = await isCommitSignedOff({
+        token: githubToken,
+        owner,
+        repo: {
+          name: repo,
+          pr: pr_number,
+        },
+        approvals: 1,
+      });
+    } catch (error) {
+      expect(error).toBeNull();
+    } finally {
+      scope.done();
+    }
+
+    expect(result).toBeFalsy();
   });
 
-  it('should fail if a commit is newer than the latest approval', async () => {
-    expect(true).toBe(true);
+  it('should fail if no approved review exists', async () => {
+    const scope = mockGraphQLCall(NoApprovedReviews);
+
+    let result;
+    try {
+      result = await isCommitSignedOff({
+        token: githubToken,
+        owner,
+        repo: {
+          name: repo,
+          pr: pr_number,
+        },
+        approvals: 1,
+      });
+    } catch (error) {
+      expect(error).toBeNull();
+    } finally {
+      scope.done();
+    }
+
+    expect(result).toBeFalsy();
   });
 
-  it('should pass if an approval appears after the latest commit', async () => {
-    expect(true).toBe(true);
-  });
+  it('should fail if not enough approved reviews exist since the latest commit (approvals > 1)', async () => {
+    const scope = mockGraphQLCall(OneApprovalMoreRecentThanCommit);
 
-  it('should pass if a pre-selected amount of approvals appears after the latest commit', async () => {
-    expect(true).toBe(true);
-  });
+    let result;
+    try {
+      result = await isCommitSignedOff({
+        token: githubToken,
+        owner,
+        repo: {
+          name: repo,
+          pr: pr_number,
+        },
+        approvals: 2,
+      });
+    } catch (error) {
+      expect(error).toBeNull();
+    } finally {
+      scope.done();
+    }
 
-  it('should fail if a commit is newer than a pre-selected number of approvals', async () => {
-    expect(true).toBe(true);
+    expect(result).toBeFalsy();
   });
 });

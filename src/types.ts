@@ -1,14 +1,12 @@
 type CommitNode = {
-  commit?: {
-    committedDate?: string;
+  commit: {
+    committedDate: string;
   };
 };
 
 type ReviewNode = {
-  review?: {
-    createdAt: string;
-    state: string;
-  };
+  createdAt: string;
+  state: string;
 };
 
 type Commit = {
