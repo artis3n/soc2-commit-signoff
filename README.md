@@ -1,6 +1,6 @@
 # signoff-new-commit
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/artis3n/signoff-new-commit/Testing%20the%20Action)](https://github.com/artis3n/signoff-new-commit/actions)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/artis3n/signoff-new-commit/CI)](https://github.com/artis3n/signoff-new-commit/actions)
 ![GitHub](https://img.shields.io/github/license/artis3n/signoff-new-commit)
 [![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/artis3n/signoff-new-commit?include_prereleases)](https://github.com/artis3n/signoff-new-commit/releases)
 ![GitHub followers](https://img.shields.io/github/followers/artis3n?style=social)
