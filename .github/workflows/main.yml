@@ -1,0 +1,13 @@
+name: Sign off on Commits
+
+on: [pull_request]
+
+jobs:
+  approve:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: artis3n/signoff-new-commit@HEAD
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
