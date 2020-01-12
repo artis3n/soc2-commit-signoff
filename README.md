@@ -1,5 +1,11 @@
 # signoff-new-commit
 
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/artis3n/signoff-new-commit/Testing%20the%20Action)](https://github.com/artis3n/signoff-new-commit/actions)
+![GitHub](https://img.shields.io/github/license/artis3n/signoff-new-commit)
+[![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/artis3n/signoff-new-commit?include_prereleases)](https://github.com/artis3n/signoff-new-commit/releases)
+![GitHub followers](https://img.shields.io/github/followers/artis3n?style=social)
+![Twitter Follow](https://img.shields.io/twitter/follow/artis3n?style=social)
+
 A GitHub Action to merge a PR after signing off on new commits without wiping previous reviews.
 
 It is common practice to require a certain number of approvals (e.g. 2) on a pull request before it can be merged in. Similarly, most organizations do not allow code to be merged to master without having been reviewed. GitHub's repository settings allow you to automatically dismiss previous approvals when a new commit is pushed. However, this introduces delay in that the pull request submitter has to find new X number of reviews on code that is - presumably - mostly the same. Simply having 1 additional review to approve the subsequent changes could be sufficient.
