@@ -14,6 +14,10 @@ async function run() {
     throw new Error('Unable to parse "approvals" input parameter into a number.');
   }
 
+  if (approvals <= 0) {
+    throw new Error('Approvals must be greater than or equal to 1. The default is 1.');
+  }
+
   const owner = context.repo.owner;
   const repoName = context.repo.repo;
   const isPullRequest = context.payload.pull_request;
@@ -30,7 +34,7 @@ async function run() {
   // [3]: merge
   const pr_number = parseInt(context.ref.split('/')[2]);
 
-  await isCommitSignedOff({
+  const isApproved: boolean = await isCommitSignedOff({
     token,
     owner,
     repo: {
@@ -38,7 +42,13 @@ async function run() {
       pr: pr_number,
     },
     approvals,
-  }).then(() => debug('Approved review exists since the latest commit was added.'));
+  });
+
+  if (isApproved) {
+    debug('Approved review exists since the latest commit was added.');
+  } else {
+    setFailed('No approved review exists since the latest commit was added.');
+  }
 }
 
 run().catch(error => setFailed(error));

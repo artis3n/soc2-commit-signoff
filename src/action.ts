@@ -42,31 +42,28 @@ export async function isCommitSignedOff(params: SignOffRequest) {
     throw new Error(`GraphQL request failed: ${error.message}`);
   }
 
-  const latestCommitDateString = pullRequestData?.commits?.nodes?.[0]?.commit?.committedDate;
+  const latestCommitDateString = pullRequestData?.commits?.nodes?.[0].commit.committedDate;
   const reviews = pullRequestData?.reviews?.nodes;
 
   if (latestCommitDateString === undefined || reviews === undefined) {
-    throw new Error('Failure parsing data from GraphQL query response');
+    throw new Error('Failure parsing data from GraphQL query response - expected data missing');
   }
 
   const latestCommitDate = new Date(latestCommitDateString);
 
-  let passed = false;
-
-  const reviewApproves = reviews.filter(review => review?.review?.state === 'APPROVED');
+  let countedApprovals = 0;
+  const reviewApproves = reviews.filter(review => review.state === 'APPROVED');
   reviewApproves.forEach(review => {
-    const reviewDateString = review?.review?.createdAt;
+    const reviewDateString = review.createdAt;
     if (reviewDateString === undefined) {
-      throw new Error('Failure parsing data from GraphQL query response');
+      throw new Error('Failure parsing data from GraphQL query response - expected data missing');
     } else {
       const reviewDate = new Date(reviewDateString);
       if (reviewDate > latestCommitDate) {
-        passed = true;
+        countedApprovals++;
       }
     }
   });
 
-  if (!passed) {
-    throw new Error('No approved review exists since the latest commit was added.');
-  }
+  return countedApprovals >= params.approvals;
 }
