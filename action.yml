@@ -3,7 +3,9 @@ description: 'Require all commits to be approved in your PR without wiping past 
 author: 'Artis3n <dev@artis3nal.com>'
 inputs:
   token:
-    description: 'This should be a token with access to your repository scoped in as a secret, e.g. `secrets.GITHUB_TOKEN`'
+    description: |
+      This should be a token with access to your repository scoped in as a secret.
+      See https://help.github.com/en/actions/automating-your-workflow-with-github-actions/authenticating-with-the-github_token
     required: true
   approvals:
     description: 'Number of approvals that must apply to the latest commit. Defaults to 1.'
