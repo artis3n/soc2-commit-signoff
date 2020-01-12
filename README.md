@@ -3,8 +3,8 @@
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/artis3n/signoff-new-commit/CI)](https://github.com/artis3n/signoff-new-commit/actions)
 ![GitHub](https://img.shields.io/github/license/artis3n/signoff-new-commit)
 [![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/artis3n/signoff-new-commit?include_prereleases)](https://github.com/artis3n/signoff-new-commit/releases)
-![GitHub followers](https://img.shields.io/github/followers/artis3n?style=social)
-![Twitter Follow](https://img.shields.io/twitter/follow/artis3n?style=social)
+[![GitHub followers](https://img.shields.io/github/followers/artis3n?style=social)](https://github.com/artis3n)
+[![Twitter Follow](https://img.shields.io/twitter/follow/artis3n?style=social)](https://twitter.com/Artis3n)
 
 A GitHub Action to merge a PR after signing off on new commits without wiping previous reviews.
 
