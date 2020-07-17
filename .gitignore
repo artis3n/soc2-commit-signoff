@@ -4,5 +4,5 @@ coverage
 .idea
 .vscode
 
-src/*.js
-test/*.js
+src/**/*.js
+__tests__/*.js
