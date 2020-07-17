@@ -24,9 +24,7 @@ const pr_number = 1;
  * @param resultPayload The response payload that nock should return for the GraphQL API.
  */
 function mockGraphQLCall(resultPayload: object) {
-  return nock('https://api.github.com')
-    .post('/graphql')
-    .reply(200, resultPayload);
+  return nock('https://api.github.com').post('/graphql').reply(200, resultPayload);
 }
 
 describe('Sign off on Commit', () => {
