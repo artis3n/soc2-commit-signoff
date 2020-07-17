@@ -31,3 +31,9 @@ export type SignOffRequest = {
   };
   approvals: number;
 };
+
+export type RepositoryQuery = {
+  repository: null | {
+    pullRequest?: PullRequest;
+  };
+};

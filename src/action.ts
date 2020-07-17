@@ -1,15 +1,15 @@
-import { PullRequest, SignOffRequest } from './types';
-import { GitHub } from '@actions/github';
+import { PullRequest, SignOffRequest, RepositoryQuery } from './types';
+import { getOctokit } from '@actions/github';
 
-export async function isCommitSignedOff(params: SignOffRequest) {
-  const github = new GitHub(params.token).graphql;
+export async function isCommitSignedOff(params: SignOffRequest): Promise<boolean> {
+  const graphql = getOctokit(params.token).graphql;
 
   let pullRequestData: PullRequest | undefined = undefined;
   try {
     // Figure out the GraphQL query at https://developer.github.com/v4/explorer/
-    const queryResponse = await github(
+    const queryResponse: RepositoryQuery = await graphql(
       `
-        query ($owner: String!, $repoName: String!, $prNumber: Int!, $approvals: Int!) {
+        query($owner: String!, $repoName: String!, $prNumber: Int!, $approvals: Int!) {
           repository(owner: $owner, name: $repoName) {
             pullRequest(number: $prNumber) {
               commits(last: 1) {
@@ -57,7 +57,7 @@ export async function isCommitSignedOff(params: SignOffRequest) {
     const reviewDateString = review.createdAt;
     if (reviewDateString === undefined) {
       throw new Error(
-        'Failure parsing data from GraphQL query response - expected createdAt date string, but it is missing: { ${review} }',
+        `Failure parsing data from GraphQL query response - expected createdAt date string, but it is missing: { ${review} }`,
       );
     } else {
       const reviewDate = new Date(reviewDateString);
