@@ -37,7 +37,6 @@ export async function isCommitSignedOff(params: SignOffRequest): Promise<boolean
       },
     );
 
-    console.log(`queryResponse: ${queryResponse}`);
     pullRequestData = queryResponse?.repository?.pullRequest;
   } catch (error) {
     throw new Error(`GraphQL request failed: ${error.message}`);
