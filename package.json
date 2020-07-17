@@ -30,22 +30,22 @@
   },
   "homepage": "https://github.com/artis3n/signoff-new-commit#readme",
   "dependencies": {
-    "@actions/core": "^1.2.1",
-    "@actions/github": "^2.0.1"
+    "@actions/core": "^1.2.4",
+    "@actions/github": "^2.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.7",
-    "@babel/preset-env": "^7.7.7",
-    "@types/jest": "^24.0.25",
-    "@types/node": "^13.1.6",
-    "husky": "^4.0.7",
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "@types/jest": "^24.9.1",
+    "@types/node": "^13.13.14",
+    "husky": "^4.2.5",
     "jest": "^24.9.0",
     "jest-circus": "^24.9.0",
     "lint-staged": "^9.5.0",
-    "nock": "^11.7.2",
+    "nock": "^11.9.1",
     "prettier": "^1.19.1",
     "ts-jest": "^24.3.0",
-    "typescript": "^3.7.4"
+    "typescript": "^3.9.7"
   },
   "husky": {
     "hooks": {
