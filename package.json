@@ -1,6 +1,6 @@
 {
   "name": "signoff-new-commit",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A GitHub Action to merge a PR after signing off on new commits without wiping previous reviews.",
   "main": "lib/main.js",
   "scripts": {
@@ -49,7 +49,9 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": [
+        "lint-staged"
+      ]
     }
   },
   "lint-staged": {

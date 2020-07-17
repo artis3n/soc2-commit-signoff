@@ -6,6 +6,7 @@ import {
   OneApprovalMoreRecentThanCommit,
   CommitMoreRecentThanApproval,
   NoApprovedReviews,
+  CommentReviewMoreRecentThanApproval,
 } from '../src/data/graphqlData';
 
 const owner = 'artis3n';
@@ -119,5 +120,28 @@ describe('Sign off on Commit', () => {
     }
 
     expect(result).toBeFalsy();
+  });
+
+  it('should pass if a PR has enough approvals since the latest commit but COMMENTED reviews are the most recent', async () => {
+    const scope = mockGraphQLCall(CommentReviewMoreRecentThanApproval);
+
+    let result;
+    try {
+      result = await isCommitSignedOff({
+        token: githubToken,
+        owner,
+        repo: {
+          name: repo,
+          pr: pr_number,
+        },
+        approvals: 1,
+      });
+    } catch (error) {
+      expect(error).toBeNull();
+    } finally {
+      scope.done();
+    }
+
+    expect(result).toBeTruthy();
   });
 });
