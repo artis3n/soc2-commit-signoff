@@ -1,0 +1,10 @@
+.github
+.vscode
+node_modules
+src
+__tests__
+.nvmrc
+.gitignore
+.prettierrc.json
+jest.config.js
+tsconfig.json

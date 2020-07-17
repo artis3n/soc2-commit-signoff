@@ -33,7 +33,7 @@ export async function isCommitSignedOff(params: SignOffRequest) {
         owner: params.owner,
         repoName: params.repo.name,
         prNumber: params.repo.pr,
-        approvals: params.approvals,
+        approvals: Math.max(params.approvals, 50),
       },
     );
 
@@ -56,7 +56,9 @@ export async function isCommitSignedOff(params: SignOffRequest) {
   reviewApproves.forEach(review => {
     const reviewDateString = review.createdAt;
     if (reviewDateString === undefined) {
-      throw new Error('Failure parsing data from GraphQL query response - expected data missing');
+      throw new Error(
+        'Failure parsing data from GraphQL query response - expected createdAt date string, but it is missing: { ${review} }',
+      );
     } else {
       const reviewDate = new Date(reviewDateString);
       if (reviewDate > latestCommitDate) {
