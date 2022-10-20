@@ -6,6 +6,10 @@
 [![GitHub followers](https://img.shields.io/github/followers/artis3n?style=social)](https://github.com/artis3n)
 [![Twitter Follow](https://img.shields.io/twitter/follow/artis3n?style=social)](https://twitter.com/Artis3n)
 
+> **Warning**
+>
+> With the release of [Last Pusher](https://github.blog/changelog/2022-10-20-new-branch-protections-last-pusher-and-locked-branch/) branch protections, you should use a combination of branch protection settings for this purpose. This action will be archived.
+
 A GitHub Action to merge a PR after signing off on new commits without wiping previous reviews.
 
 It is common practice to require a certain number of approvals (e.g. 2) on a pull request before it can be merged in. Similarly, most organizations do not allow code to be merged to master without having been reviewed. GitHub's repository settings allow you to automatically dismiss previous approvals when a new commit is pushed. However, this introduces delay in that the pull request submitter has to find new X number of reviews on code that is - presumably - mostly the same. Simply having 1 additional review to approve the subsequent changes could be sufficient.
